@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма студента</title>
+  <script>
+
+    function Student(name, surname, age, course) {
+      this.name = name;
+      this.surname = surname;
+      this.age = age;
+      this.course = course;
+
+      this.GetOlder = function(years) {
+        this.age += years;
+      };
+
+      this.ChangeSurname = function(newSurname) {
+        this.surname = newSurname;
+      };
+
+      this.MoveToSecondCourse = function() {
+        if (this.course < 4) {
+          this.course++;
+        } else {
+          alert("Студент вже на 4-му курсі.");
+        }
+      };
+    }
+
+    let student1 = new Student("Дмитро", "Одарчено", 20, 1);  
+
+    function updateStudentInfo() {
+      document.getElementById("studentInfo").innerHTML = `
+        <p>Ім'я: ${student1.name}</p>
+        <p>Прізвище: ${student1.surname}</p>
+        <p>Вік: ${student1.age}</p>
+        <p>Курс: ${student1.course}</p>
+      `;
+    }
+
+    function changeAge() {
+      let years = parseInt(document.getElementById("ageInput").value);
+      student1.GetOlder(years);
+      updateStudentInfo();
+    }
+
+    function changeSurname() {
+      let newSurname = document.getElementById("surnameInput").value;
+      student1.ChangeSurname(newSurname);
+      updateStudentInfo();
+    }
+
+    function moveToNextCourse() {
+      student1.MoveToSecondCourse();
+      updateStudentInfo();
+    }
+
+    window.onload = function() {
+      updateStudentInfo();
+    }
+  </script>
+</head>
+<body>
+  <h1>Інформація про студента</h1>
+  
+  <div id="studentInfo">
+  </div>
+
+  <h2>Зміна властивостей студента</h2>
+  
+  <label for="ageInput">Збільшити вік на (роки):</label>
+  <input type="number" id="ageInput">
+  <button onclick="changeAge()">Змінити вік</button><br><br>
+
+  <label for="surnameInput">Змінити прізвище:</label>
+  <input type="text" id="surnameInput">
+  <button onclick="changeSurname()">Змінити прізвище</button><br><br>
+
+  <button onclick="moveToNextCourse()">Перевести на наступний курс</button>
+  
+</body>
+</html>
